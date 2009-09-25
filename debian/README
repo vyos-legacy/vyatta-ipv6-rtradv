@@ -1,0 +1,10 @@
+The Debian Package vyatta-ipv6-rtradv
+----------------------------
+
+This package has the Vyatta config and op mode templates and scripts
+to configure and manage the router advertisement daemon (radvd).  This
+provide support for the router side of the Stateless Address
+Auto-Configuration Protocol (SLAAC) and the "router discovery"
+functions of the Neighbor Discovery (ND) protocol.
+
+ -- Bob Gilligan <gilligan@vyatta.com> Wed, 12 Aug 2009

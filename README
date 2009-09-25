@@ -1,0 +1,2 @@
+This package has the Vyatta configuration templates and scripts to configure
+the IPv6 router advertisement daemon (radvd).

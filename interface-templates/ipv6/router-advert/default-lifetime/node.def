@@ -1,0 +1,8 @@
+type: u32
+
+help: Set value to be placed in "Router Lifetime" field in RAs
+
+comp_help: Possible completions:
+ <0, 4 - 9000>\tValue in seconds to be placed in "Router Lifetime" field in RAs
+
+syntax:expression: ($VAR(@) == 0 || ($VAR(@) >= 4 && $VAR(@) <= 9000)) ; "Value must be 0 or between 4 and 9000"

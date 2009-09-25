@@ -1,0 +1,6 @@
+vyatta-ipv6-rtradv (0.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 12 Aug 2009 15:26:18 -0700
+

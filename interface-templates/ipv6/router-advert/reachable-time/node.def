@@ -1,0 +1,10 @@
+type: u32
+
+default: 0
+
+help: Set value to be placed in "Reachable Time" field in RAs
+
+comp_help: Possible completions:
+ <0 - 3600000>\tValue in milliseconds to be placed in "Reachable Time" field in RAs
+
+syntax:expression: ($VAR(@) >= 0 && $VAR(@) <= 3600000) ; "Value must be between 0 and 3,600,000 milliseconds (1 hour)"

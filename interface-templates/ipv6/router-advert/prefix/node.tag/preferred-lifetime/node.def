@@ -1,0 +1,11 @@
+type: txt
+
+default: "604800"
+
+help: Set time in seconds that the prefix will remain preferred
+
+comp_help: Possible completions:
+ <0 - MAX>\tTime in seconds that the prefix will remain preferred
+ infinity\tPrefix will remain preferred forever
+
+syntax:expression: ($VAR(@) = "infinity" || (pattern $VAR(@) "[0-9]*")) ; "Must be 'infinity' or a number"

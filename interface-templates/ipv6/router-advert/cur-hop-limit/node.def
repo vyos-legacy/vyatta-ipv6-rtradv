@@ -1,0 +1,10 @@
+type: u32
+
+default: 64
+
+help: Set value to be placed in the "Current Hop Limit" field in RAs
+
+comp_help: Possible completions:
+ <1 - 255>\tValue to place in the "Current Hop Limit" field in RAs
+ 0\t\tPlace 0 in "Current Hop Limit" field, meaning "unspecified"
+syntax:expression: ($VAR(@) >= 0 && $VAR(@) <= 255) ; "Value must be between 0 and 255"

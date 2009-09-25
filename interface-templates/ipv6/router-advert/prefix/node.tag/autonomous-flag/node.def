@@ -1,0 +1,9 @@
+type: bool
+
+default: true
+
+help: Set flag that prefix can be used for address auto-configuration
+
+comp_help: Possible completions:
+ true\tPrefix can be used for stateless address auto-configuration
+ false\tPrefix can not be used for stateless address auto-configuration

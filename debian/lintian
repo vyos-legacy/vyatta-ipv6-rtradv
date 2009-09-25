@@ -1,0 +1,2 @@
+vyatta-ipv6-rtradv: file-in-unusual-dir
+vyatta-ipv6-rtradv: dir-or-file-in-opt

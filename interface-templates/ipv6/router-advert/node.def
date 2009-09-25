@@ -1,0 +1,20 @@
+priority: 999
+
+help: Configure parameters for sending Router Advertisements (RAs)
+
+end:
+	if [ "$COMMIT_ACTION" = "SET" -o "$COMMIT_ACTION" = "ACTIVE" ]; then
+	    echo "Re-generating radvd config file for interface $IFNAME..."
+	    /opt/vyatta/sbin/vyatta_gen_radvd.pl --generate $IFNAME "$CONFIG_PATH ipv6 router-advert"
+	elif [ "$COMMIT_ACTION" = "DELETE" ]; then
+	    echo "Deleting entry for interface $IFNAME from radv config file..."
+	    /opt/vyatta/sbin/vyatta_gen_radvd.pl --delete $IFNAME
+	fi
+
+	if [ -e /var/run/radvd/radvd.pid ]; then
+	    echo "Re-starting radvd..."
+	    /etc/init.d/radvd restart
+	else
+	    echo "Starting radvd..."
+	    /etc/init.d/radvd start
+	fi
