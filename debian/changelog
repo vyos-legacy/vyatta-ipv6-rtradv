@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.3) unstable; urgency=low
+
+  * Fix equality comparison in syntax fields.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Mon, 05 Oct 2009 09:56:45 -0700
+
 vyatta-ipv6-rtradv (0.2) unstable; urgency=low
 
   * UNRELEASED
