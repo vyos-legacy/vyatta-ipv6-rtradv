@@ -8,4 +8,4 @@ comp_help: Possible completions:
  <0 - MAX>\tTime in seconds that the prefix will remain valid
  infinity\tPrefix will remain valid forever
 
-syntax:expression: ($VAR(@) = "infinity" || (pattern $VAR(@) "[0-9]*")) ; "Must be 'infinity' or a number"
+syntax:expression: ($VAR(@) == "infinity" || (pattern $VAR(@) "[0-9]*")) ; "Must be 'infinity' or a number"
