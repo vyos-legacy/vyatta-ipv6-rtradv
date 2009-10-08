@@ -67,7 +67,7 @@ sub log_msg {
 }
 
 my $config;
-my $FD_WR;
+my $FD_WR;      # Temporary config file pointer
 my @generate;
 my $delete;
 
@@ -94,10 +94,25 @@ sub do_prefix {
     my $param_root = $_[0];
     my $prefix = $_[1];
 
-    print $FD_WR "    prefix $prefix {\n";
+    # RFC-4861 parameters for each element of AdvPrefixList.
+    # Parameters with fixed default values have those values specified
+    # here.  Those values may be simply over-ridden by user-selected
+    # values.  Parameters that have algorithmic default values have
+    # their value set to -1 here.  User-selected values can over-ride
+    # them.  If the user doesn't select a value, a final value is
+    # determined later on.  Note: Keys are the parameter strins
+    # used in radvd.conf file, which do not always match exactly the
+    # strings used in RFC-4861.
+
+    my %prefix_param_hash = ( 'AdvValidLifetime' => '2592000',
+                              'AdvOnLink' => 'on',
+                              'AdvPreferredLifetime' => '-1',
+                              'AdvAutonomous' => 'on' );
 
     my @prefix_params = $config->listNodes("$param_root prefix $prefix");
     log_msg("prefix_params for prefix $prefix: @prefix_params\n");
+    
+    # Read in parameters set by user
     while (@prefix_params) {
         my $prefix_param = shift @prefix_params;
         log_msg("prefix_param = $prefix_param\n");
@@ -107,24 +122,54 @@ sub do_prefix {
 
         if ($prefix_param eq "on-link-flag") {
             if ($value eq "true") {
-                print $FD_WR "        AdvOnLink on;\n";
+                $prefix_param_hash{'AdvOnLink'} = 'on';
             } else {
-                print $FD_WR "        AdvOnLink off;\n";
+                $prefix_param_hash{'AdvOnLink'} = 'off';
             }
         } elsif ($prefix_param eq "autonomous-flag") {
             if ($value eq "true") {
-                print $FD_WR "        AdvAutonomous on;\n";
+                $prefix_param_hash{'AdvAutonomous'} = 'on';
             } else {
-                print $FD_WR "        AdvAutonomous off;\n";
+                $prefix_param_hash{'AdvAutonomous'} = 'off';
             }
         } elsif ($prefix_param eq "valid-lifetime") {
-            print $FD_WR "        AdvValidLifetime $value;\n";
+            $prefix_param_hash{'AdvValidLifetime'} = $value;
         } elsif ($prefix_param eq "preferred-lifetime") {
-            print $FD_WR "        AdvPreferredLifetime $value;\n";
+            $prefix_param_hash{'AdvPreferredLifetime'} = $value;
         }
         
     }
-        
+
+    # Fill in any missing default values
+    if ($prefix_param_hash{'AdvPreferredLifetime'} == -1) {
+        if (($prefix_param_hash{'AdvValidLifetime'} > 604800) ||
+            ($prefix_param_hash{'AdvValidLifetime'} eq "infinity")) {
+            $prefix_param_hash{'AdvPreferredLifetime'} = 604800;
+        } else {
+            $prefix_param_hash{'AdvPreferredLifetime'} = 
+                $prefix_param_hash{'AdvValidLifetime'};
+        }
+    }
+
+    # Validate user parameters
+    if (($prefix_param_hash{'AdvValidLifetime'} ne "infinity") &&
+        (($prefix_param_hash{'AdvPreferredLifetime'} eq "infinity") ||
+         ($prefix_param_hash{'AdvPreferredLifetime'} > 
+          $prefix_param_hash{'AdvValidLifetime'}))) {
+        printf("Error: You have set AdvPreferredLifetime to ");
+        printf("$prefix_param_hash{'AdvPreferredLifetime'}\n");
+        printf("and AdvValidLifetime to ");
+        printf("$prefix_param_hash{'AdvValidLifetime'}.\n");
+        printf("AdvPreferredLifetime must be less than or equal to AdvValidLifetime.\n");
+        exit(1);
+    }
+
+    # Write parameters out to config file
+    print $FD_WR "    prefix $prefix {\n";
+    foreach my $key (keys %prefix_param_hash) {
+        print $FD_WR "        $key $prefix_param_hash{$key};\n";
+    }
+
     print $FD_WR "    };\n";
 }
 
@@ -134,24 +179,35 @@ sub do_interface {
     my $ifname = $_[1];
     my $date = `date`;
     my $user = `id -un`;
+    
+    # RFC-4861 parameters and their default values.
+    # Parameters with fixed defined default values have those values
+    # set here.  Those values may be simply over-ridden by user-selected
+    # values.  Parameters that have algorithmic default values
+    # have their value set to -1 here.  User-selected values can
+    # over-ride them.  If the user doesn't select a value, a final
+    # value is determined later on.
+    my %param_hash = ( 'AdvSendAdvert' => 'off',
+                       'MaxRtrAdvInterval' => 600,
+                       'MinRtrAdvInterval' => -1,
+                       'AdvManagedFlag' => 'off',
+                       'AdvOtherConfigFlag' => 'off',
+                       'AdvLinkMTU' => '0',
+                       'AdvReachableTime' => '0',
+                       'AdvRetransTimer' => '0',
+                       'AdvCurHopLimit' => '64',
+                       'AdvDefaultLifetime' => '-1' );
+
+
 
     $date =~ s/\n//;
     $user =~ s/\n//;
-
-    print $FD_WR "interface $ifname {\n";
-    print $FD_WR "#   This section is automatically generated by the Vyatta\n";
-    print $FD_WR "#   configuration sub-system.  Do not edit it.\n";
-    print $FD_WR "#\n";
-    print $FD_WR "#   Generated on $date by $user\n";
-    print $FD_WR "#\n";
-
-    print $FD_WR "    IgnoreIfMissing on;\n";
-    print $FD_WR "    AdvSendAdvert on;\n";
 
     my @params = $config->listNodes($param_root);
 
     log_msg("params = @params\n");
 
+    # Read in top-level params...
     while (@params) {
         my $param = shift @params;
         log_msg("Node: $param \n");
@@ -160,34 +216,107 @@ sub do_interface {
         log_msg("Value: $value\n");
 
         if ($param eq "max-interval") {
-            print $FD_WR "    MaxRtrAdvInterval $value;\n";
+            $param_hash{'MaxRtrAdvInterval'} = $value;
         } elsif ($param eq "min-interval") {
-            print $FD_WR "    MinRtrAdvInterval $value;\n";
+            $param_hash{'MinRtrAdvInterval'} = $value;
         } elsif ($param eq "managed-flag") {
             if ($value eq "true") {
-                print $FD_WR "    AdvManagedFlag on;\n";
+                $param_hash{'AdvManagedFlag'} = 'on';
             } else {
-                print $FD_WR "    AdvManagedFlag off;\n";
+                $param_hash{'AdvManagedFlag'} = 'off';
             }
         } elsif ($param eq "other-config-flag") {
             if ($value eq "true") {
-                print $FD_WR "    AdvOtherConfigFlag on;\n";
+                $param_hash{'AdvOtherConfigFlag'} = 'on';
             } else {
-                print $FD_WR "    AdvOtherConfigFlag off;\n";
+                $param_hash{'AdvOtherConfigFlag'} = 'off';
+            }
+        } elsif ($param eq "send-advert") {
+            if ($value eq "true") {
+                $param_hash{'AdvSendAdvert'} = 'on';
+            } else {
+                $param_hash{'AdvSendAdvert'} = 'off';
             }
         } elsif ($param eq "link-mtu") {
-            print $FD_WR "    AdvLinkMTU $value;\n";
+            $param_hash{'AdvLinkMTU'} = $value;
         } elsif ($param eq "reachable-time") {
-            print $FD_WR "    AdvReachableTime $value;\n";
+            $param_hash{'AdvReachableTime'} = $value;
         } elsif ($param eq "retrans-timer") {
-            print $FD_WR "    AdvRetransTimer $value;\n";
+            $param_hash{'AdvRetransTimer'} = $value;
         } elsif ($param eq "cur-hop-limit") {
-            print $FD_WR "    AdvCurHopLimit $value;\n";
+            $param_hash{'AdvCurHopLimit'} = $value;
         } elsif ($param eq "default-lifetime") {
-            print $FD_WR "    AdvDefaultLifetime $value;\n";
+            $param_hash{'AdvDefaultLifetime'} = $value;
         } elsif ($param eq "prefix") {
             # Skip for now.  We'll do these later.
         }
+    }
+
+    # Fill in remainig defaults
+    if ($param_hash{'MinRtrAdvInterval'} == -1) {
+        if ($param_hash{'MaxRtrAdvInterval'} > 9) {
+            $param_hash{'MinRtrAdvInterval'} = 
+                $param_hash{'MaxRtrAdvInterval'} * 0.33;
+            # Round to nearest integer
+            $param_hash{'MinRtrAdvInterval'} = 
+                sprintf("%.0f", $param_hash{'MinRtrAdvInterval'});
+        } else {
+            $param_hash{'MinRtrAdvInterval'} = 3;
+        }
+    }
+
+    if ($param_hash{'AdvDefaultLifetime'} == -1) {
+        $param_hash{'AdvDefaultLifetime'} =
+            $param_hash{'MaxRtrAdvInterval'} * 3;
+    }
+
+    # Validate values
+    if ($param_hash{'MaxRtrAdvInterval'} > 1800) {
+        printf("Error: MaxRtrAdvInterval value is $param_hash{'MaxRtrAdvInterval'}. It must be 1800 or less.\n");
+        exit 1;
+    }
+
+    if ($param_hash{'MaxRtrAdvInterval'} < 4) {
+        printf("Error: MaxRtrAdvInterval valueis $param_hash{'MaxRtrAdvInterval'}. It must be 4 or more\n");
+        exit 1;
+    }
+
+    if ($param_hash{'MinRtrAdvInterval'} < 3) {
+        printf("Error: MinRtrAdvInterval value is $param_hash{'MinRtrAdvInterval'}. It must be 3 or more\n");
+        exit 1;
+    }
+    
+    if ($param_hash{'MinRtrAdvInterval'} >
+        ($param_hash{'MaxRtrAdvInterval'} * 0.75)) {
+        printf("Error: MinRtrAdvInterval is $param_hash{'MinRtrAdvInterval'} and MaxRtrAdvInterval is $param_hash{'MaxRtrAdvInterval'}.\n");
+        printf("MinRtrAdvInterval must be no greater than 3/4 MaxRtrAdvInterval\n");
+        exit 1;
+    }
+
+    if (($param_hash{'AdvDefaultLifetime'} != 0) &&
+        ($param_hash{'AdvDefaultLifetime'} <
+         $param_hash{'MaxRtrAdvInterval'})) {
+        printf("Error: AdvDefaultLifetime is $param_hash{'AdvDefaultLifetime'}");
+        printf(" and MaxRtrAdvInterval is $param_hash{'MaxRtrAdvInterval'}.\n");
+        printf("AdvDefaultLifetime must equal to or greater than MaxRtrAdvInterval.\n");
+        exit 1;
+    }
+
+    if ($param_hash{'AdvDefaultLifetime'} > 9000) {
+        printf("Error: AdvDefaultLifetime vlaue is $param_hash{'AdvDefaultLifetime'}.  It must be 9000 or less.\n");
+        exit 1;
+    }
+
+    # Spit out top-level params to config file
+    print $FD_WR "interface $ifname {\n";
+    print $FD_WR "#   This section is automatically generated by the Vyatta\n";
+    print $FD_WR "#   configuration sub-system.  Do not edit it.\n";
+    print $FD_WR "#\n";
+    print $FD_WR "#   Generated on $date by $user\n";
+    print $FD_WR "#\n";
+    print $FD_WR "    IgnoreIfMissing on;\n";
+    foreach my $key (keys %param_hash) {
+        print $FD_WR "    $key $param_hash{$key};\n";
     }
 
     # Process prefix params, if any
@@ -200,6 +329,7 @@ sub do_interface {
         do_prefix($param_root, $prefix);
     }
 
+    # Finish off config file
     print $FD_WR "};\n";
 }
 
@@ -271,4 +401,3 @@ sub delete_conf {
 # indent-tabs-mode: nil
 # perl-indent-level: 4
 # End:
-

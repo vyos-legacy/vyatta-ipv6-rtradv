@@ -1,8 +1,9 @@
 type: u32
 
-default: 600
-
 help: Set maximum interval between unsolicited multicast RAs
+
+# Default value per RFC-4861
+default: 600
 
 comp_help: Possible completions:
  <4 - 1800>\tMaximum interval in seconds between unsolicited multicast RAs

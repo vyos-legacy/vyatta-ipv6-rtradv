@@ -1,8 +1,9 @@
 type: u32
 
-default: 0
-
 help: Set value of link MTU to place in RAs
+
+# Default value per RFC-4861.
+default: 0
 
 comp_help: Possible completions:
  <1 - MAX>\tValue of link MTU to place in RAs
