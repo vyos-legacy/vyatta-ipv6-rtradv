@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.4) unstable; urgency=low
+
+  * Improve default value generation and error checking.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 07 Oct 2009 17:35:59 -0700
+
 vyatta-ipv6-rtradv (0.3) unstable; urgency=low
 
   * Fix equality comparison in syntax fields.
