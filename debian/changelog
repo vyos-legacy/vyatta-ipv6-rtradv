@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.5) unstable; urgency=low
+
+  * Add ability to disable IPv6 forwarding on a per-interface basis.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 09 Oct 2009 14:52:58 -0700
+
 vyatta-ipv6-rtradv (0.4) unstable; urgency=low
 
   * Improve default value generation and error checking.
