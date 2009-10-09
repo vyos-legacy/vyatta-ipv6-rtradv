@@ -1,0 +1,28 @@
+
+help: Disable IPv6 forwarding on this interface only
+
+create:
+	procfile=/proc/sys/net/ipv6/conf/$IFNAME/forwarding
+	if [ -e $procfile ]; then
+	    echo "Disabling IPv6 forwarding for $IFNAME"
+	    sudo sh -c "echo 0 > $procfile"
+	else
+	    echo "IPv6 forwarding will be disabled when $IFNAME comes up"
+	fi
+
+delete:
+	procfile=/proc/sys/net/ipv6/conf/$IFNAME/forwarding
+	if [ -e $procfile ]; then
+	    # Only re-enable forwarding if global disable-forwarding switch
+	    # is not set.
+	    global=`cat /proc/sys/net/ipv6/conf/all/forwarding`
+	    if [ "$global" = "1" ]; then
+		echo "Re-enabling IPv6 forwarding for $IFNAME"
+		sudo sh -c "echo 1 > /proc/sys/net/ipv6/conf/$IFNAME/forwarding"
+	    else
+		echo "Not re-enabling IPv6 forwarding for $IFNAME because it is still" 
+		echo "globally disabled."
+	    fi
+	else
+	    echo "IPv6 forwarding will be re-enabled when $IFNAME comes up"
+	fi

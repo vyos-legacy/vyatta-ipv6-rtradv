@@ -1,8 +1,0 @@
-type: bool
-
-help: Enable or disable IPv6 forwarding
-
-comp_help: Possible completions:
- true	Enable IPv6 forwarding
- false	Disable IPv6 forwarding
-

@@ -13,5 +13,5 @@ default: true
 
 comp_help: Possible completions:
  true	Enable sending RAs
- false	Diesable sending RAs
+ false	Disable sending RAs
 
