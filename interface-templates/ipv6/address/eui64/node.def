@@ -1,0 +1,18 @@
+multi:
+
+type: ipv6net
+
+help: Set IPv6 address using EUI-64 based on MAC address
+
+comp_help:Possible completions:
+  <h:h:h:h/64>	64-bit IPv6 prefix to use with EUI-64 to make address
+
+create:
+	if [ -e /proc/sys/net/ipv6/conf/$IFNAME ]; then
+	    sudo /opt/vyatta/sbin/vyatta-ipv6-eui64.pl --create $IFNAME $VAR(@)
+	else
+	    echo "EUI-64 based address will be assigned when interface comes up."
+	fi
+
+delete:
+	sudo /opt/vyatta/sbin/vyatta-ipv6-eui64.pl --delete $IFNAME $VAR(@)

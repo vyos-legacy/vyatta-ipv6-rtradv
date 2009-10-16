@@ -10,6 +10,7 @@ sysconf_DATA	 =
 sbin_SCRIPTS	 =
 
 sbin_SCRIPTS += scripts/vyatta_gen_radvd.pl
+sbin_SCRIPTS += scripts/vyatta-ipv6-eui64.pl
 
 cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
   cpio -0pd
