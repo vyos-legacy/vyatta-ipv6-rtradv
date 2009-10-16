@@ -1,3 +1,11 @@
+vyatta-ipv6-rtradv (0.6) unstable; urgency=low
+
+  * Add ability to configure EUI-64 addresses and to enable auto
+    configuration.
+  * 0.5
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Thu, 15 Oct 2009 18:10:27 -0700
+
 vyatta-ipv6-rtradv (0.5) unstable; urgency=low
 
   * Add ability to disable IPv6 forwarding on a per-interface basis.
