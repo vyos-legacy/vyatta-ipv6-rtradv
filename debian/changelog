@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.8) unstable; urgency=low
+
+  * Disable IPv6 address auto-configuration by default.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Fri, 30 Oct 2009 16:10:21 -0700
+
 vyatta-ipv6-rtradv (0.7) unstable; urgency=low
 
   * Correctly set the U/L bit in Modified EUI-64 addresses.
