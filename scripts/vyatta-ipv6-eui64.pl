@@ -28,17 +28,16 @@
 #
 # Syntax:
 #    vyatta-ipv6-eui64.pl --create <ifname> <IPv6-prefix>
-#    vyatta_gen_radvd.pl --delete <ifname> <IPv6-prefix>
+#    vyatta-ipv6-eui64.pl --delete <ifname> <IPv6-prefix>
 #
 # The first form will create a new IPv6 address on <ifname> using
 # the EUI-64 format.  The <IPv6-prefix> will be used to form the
 # high-order 64 bits of the address.  The 48-bit MAC address will
-# be padded out as specified in RFC-XXXX to form a 64-bit EUI-64
+# be padded out as specified in RFC-3513 to form a 64-bit EUI-64
 # which will be used to form the low-order 64-bits of the address.
 #
 # The second form removes an EUI-64 format address from <ifname>.
-# First an EUI-64 address will be generated from the <IPv6-prefix> and
-# the EUI-64 address formed from the 48-bit MAC address of <ifname>.  Then,
+# First an IPv6 address will be formed in the same manner as above.  Then,
 # if that address is assigned to <ifname>, it will be deleted.
 #
 
@@ -49,11 +48,26 @@ use Vyatta::Config;
 use Vyatta::TypeChecker;
 use Getopt::Long;
 
-my $temp_file="/tmp/radvd_config_if_";
-my $conf_file="/etc/radvd.conf";
-
 # Set to 1 to enable debug output
 my $debug_flag=0;
+
+# Hash to complement the second U/L bit:
+my %ul_hash = ( '0' => '2',
+                '1' => '3',
+                '2' => '0',
+                '3' => '1',
+                '4' => '6',
+                '5' => '7',
+                '6' => '4',
+                '7' => '5',
+                '8' => 'a',
+                '9' => 'b',
+                'a' => '8',
+                'b' => '9',
+                'c' => 'e',
+                'd' => 'f',
+                'e' => 'c',
+                'f' => 'd' );
 
 sub log_msg {
     my $message = shift;
@@ -63,9 +77,6 @@ sub log_msg {
     }
 }
 
-my $config;
-my $FD_WR;      # Temporary config file pointer
-my @generate;
 my @create;
 my @delete;
 
@@ -87,7 +98,6 @@ if (scalar(@delete)) {
 
 printf("Error: invalid args: $ARGV\n");
 exit 1;
-
 
 # Put an IPv6 addr in canonical format without "::"
 sub canonicalize_addr {
@@ -151,12 +161,30 @@ sub validate_and_form_addr {
         return undef;
     }
     
-    # Form 64-bit EUI-64 based on MAC addr
+    # Form 64-bit Modified EUI-64 based on 48-bit MAC addr
 
     $macaddr =~ m/(..):(..):(..):(..):(..):(..)/;
     log_msg("1 = $1 2 = $2 3 = $3 4 = $4 5 = $5 6 = $6\n");
 
-    my $eui64 = "$1$2:$3ff:fe$4:$5$6";
+    my $byte_1 = $1;
+    my $byte_2 = $2;
+    my $byte_3 = $3;
+    my $byte_4 = $4;
+    my $byte_5 = $5;
+    my $byte_6 = $6;
+
+    $byte_1 =~ m/([0-9a-fA-F])([0-9a-fA-F])/;
+    my $nibble_1 = $1;
+    my $nibble_2 = $2;
+
+    log_msg("n1 = $nibble_1 n2 = $nibble_2\n");
+
+    # Complement bit-2 of second nibble to change U bit to L
+    $nibble_2 = $ul_hash{$nibble_2};
+
+    log_msg("n1 = $nibble_1 n2 = $nibble_2\n");
+
+    my $eui64 = $nibble_1 . $nibble_2 . $byte_2 . ":" . $byte_3 . "ff:fe" . $byte_4 . ":" . $byte_5 . $byte_6;
 
     log_msg("eui64 = $eui64\n");
 
@@ -170,7 +198,7 @@ sub validate_and_form_addr {
 
     log_msg("ipv6_addr = $ipv6_addr\n");
 
-    # strip off the low-order 64-bits
+    # strip off the low-order 64-bits, but leave the trailing colon
     $ipv6_addr =~ s/[0-9a-fA-F]*:[0-9a-fA-F]*:[0-9a-fA-F]*:[0-9a-fA-F]*$//;
 
     log_msg("ipv6_addr = $ipv6_addr\n");
@@ -216,16 +244,12 @@ sub delete_addr {
         exit 1;
     }
     
-    # Make sure 128-bit addr is assigned to $ifname -- XXX
-
-    # Delete addr from  $ifname
+    # Attempt to delete addr from $ifname...
     my $retval = system("ip -6 addr del $ipv6_addr dev $ifname");
     if ($retval != 0) {
         printf("Warning: Couldn't delete IPv6 addr $ipv6_addr from $ifname\n");
     }
 }
-
-
 
 # Local Variables:
 # mode: perl
