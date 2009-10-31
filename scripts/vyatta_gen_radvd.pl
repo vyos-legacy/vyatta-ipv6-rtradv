@@ -271,6 +271,16 @@ sub do_interface {
     }
 
     # Validate values
+    my $mtu_param = $param_hash{'AdvLinkMTU'};
+    if ($mtu_param > 0) {
+        my $live_mtu = `ip link show $ifname | grep mtu | awk '{ print \$5 }'`;
+        $live_mtu =~ s/\n//;
+        if ($live_mtu != $mtu_param) {
+            printf("Warning: link-mtu parameter given ($mtu_param) is different from the MTU\n");
+            printf("currently being used on $ifname ($live_mtu).\n");
+        }
+    }
+
     if ($param_hash{'MaxRtrAdvInterval'} > 1800) {
         printf("Error: MaxRtrAdvInterval value is $param_hash{'MaxRtrAdvInterval'}. It must be 1800 or less.\n");
         exit 1;
