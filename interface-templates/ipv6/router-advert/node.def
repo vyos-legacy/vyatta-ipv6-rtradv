@@ -1,4 +1,5 @@
-priority: 999
+
+priority: 999 # Run after parent interface is configured
 
 help: Configure parameters for sending Router Advertisements (RAs)
 
