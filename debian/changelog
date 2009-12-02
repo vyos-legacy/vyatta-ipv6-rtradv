@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.13) unstable; urgency=low
+
+  * Co-ordinate per-interface and global IPv6 forwarding control.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 02 Dec 2009 11:48:46 -0800
+
 vyatta-ipv6-rtradv (0.12) unstable; urgency=low
 
   * Add config parameter to control duplicate address detection per RFC-
