@@ -9,13 +9,14 @@ create:
 	else
 	    echo "IPv6 forwarding will be disabled when $IFNAME comes up"
 	fi
+	touch /var/run/vyatta/ipv6_no_fwd.$IFNAME
 
 delete:
 	procfile=/proc/sys/net/ipv6/conf/$IFNAME/forwarding
 	if [ -e $procfile ]; then
 	    # Only re-enable forwarding if global disable-forwarding switch
 	    # is not set.
-	    global=`cat /proc/sys/net/ipv6/conf/all/forwarding`
+	    global=`cat /proc/sys/net/ipv6/conf/default/forwarding`
 	    if [ "$global" = "1" ]; then
 		echo "Re-enabling IPv6 forwarding for $IFNAME"
 		sudo sh -c "echo 1 > /proc/sys/net/ipv6/conf/$IFNAME/forwarding"
@@ -26,3 +27,5 @@ delete:
 	else
 	    echo "IPv6 forwarding will be re-enabled when $IFNAME comes up"
 	fi
+	rm /var/run/vyatta/ipv6_no_fwd.$IFNAME
+
