@@ -68,7 +68,7 @@ my %config_path_hash = (
     'bonding/node.tag'                              => 
 	'interfaces bonding $VAR(@)',
     'bonding/node.tag/vif/node.tag'                 => 
-	'interfaces bonding $VAR(../@)vif $VAR(@)',
+	'interfaces bonding $VAR(../@) vif $VAR(@)',
     'tunnel/node.tag'                               => 
 	'interfaces tunnel $VAR(@)',
     'bridge/node.tag'                               => 
