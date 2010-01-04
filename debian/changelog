@@ -1,3 +1,10 @@
+vyatta-ipv6-rtradv (0.14) unstable; urgency=low
+
+  * Bugfix 5184: Typo in script was generating bad path to config sub-
+    tree.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Mon, 04 Jan 2010 10:52:56 -0800
+
 vyatta-ipv6-rtradv (0.13) unstable; urgency=low
 
   * Co-ordinate per-interface and global IPv6 forwarding control.
