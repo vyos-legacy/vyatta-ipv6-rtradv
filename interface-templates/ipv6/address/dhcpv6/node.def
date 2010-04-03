@@ -1,0 +1,34 @@
+
+priority: 399 # Run after interface has been configured
+
+help: Acquire IPv6 address and/or parameters using DHCPv6
+
+end:
+    echo "DHCPv6 end node."
+    ifname="$VAR(../../../@)"
+    echo "Ifname is $ifname"
+
+    if [ -n "$VAR(./parameters-only)" ]; then
+	arg1="--parameters-only"
+    fi
+    if [ -n "$VAR(./temporary)" ]; then
+	arg2="--temporary"
+    fi
+
+    if [ "$COMMIT_ACTION" = "SET" ]; then
+	echo "Starting DHCPv6 client on ${ifname}..."
+	sudo /opt/vyatta/sbin/vyatta-dhcpv6-client.pl --start \
+	    --ifname $ifname $arg1 $arg2
+    elif [ "$COMMIT_ACTION" = "DELETE" ]; then
+	echo "Stopping DHCPv6 client on ${ifname}..."
+	sudo /opt/vyatta/sbin/vyatta-dhcpv6-client.pl --stop --ifname $ifname
+    elif [ "$COMMIT_ACTION" = "ACTIVE" ]; then
+	echo "Re-starting DHCPv6 client on ${ifname}..."
+	sudo /opt/vyatta/sbin/vyatta-dhcpv6-client.pl --stop --start \
+	    --ifname $ifname $arg1 $arg2
+    else
+	echo "Error: illegal COMMIT_ACTION value: $COMMIT_ACTION"
+	exit 0
+    fi
+    echo "Done."
+    exit 0
