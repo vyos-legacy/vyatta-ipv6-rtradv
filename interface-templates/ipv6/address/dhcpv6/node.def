@@ -4,9 +4,7 @@ priority: 399 # Run after interface has been configured
 help: Acquire IPv6 address and/or parameters using DHCPv6
 
 end:
-    echo "DHCPv6 end node."
     ifname="$VAR(../../../@)"
-    echo "Ifname is $ifname"
 
     if [ -n "$VAR(./parameters-only)" ]; then
 	arg1="--parameters-only"
