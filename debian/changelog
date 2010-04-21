@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.18) unstable; urgency=low
+
+  * Add op-mode "release" and "renew" commands for DHCPv6 client.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Tue, 20 Apr 2010 17:15:08 -0700
+
 vyatta-ipv6-rtradv (0.17) unstable; urgency=low
 
   * Improve DHCPv6 client start and stop.
