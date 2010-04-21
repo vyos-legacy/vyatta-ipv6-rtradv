@@ -27,7 +27,8 @@ clean-local:
 	rm -rf $(gentmpdir)
 
 install-exec-hook:
-	cd $(gentmpdir); $(cpiop) $(DESTDIR)$(cfgdir)
+	cd $(gentmpdir); $(cpiop) $(DESTDIR)$(cfgdir) ; cd ..
+	cd templates-op; $(cpiop) $(DESTDIR)$(opdir) ; cd ..
 
 
 

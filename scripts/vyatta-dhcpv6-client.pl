@@ -17,7 +17,7 @@
 # All Rights Reserved.
 #
 # Author: Bob Gilligan <gilligan@vyatta.com>
-# Date: 2010
+# Date: April 2010
 # Description: Start and stop DHCPv6 client daemon for an interface.
 #
 # **** End License ****
@@ -30,8 +30,10 @@ use FileHandle;
 use Vyatta::Config;
 use Getopt::Long;
 
-my $start_flag;
-my $stop_flag;
+my $start_flag;		# Start the daemon
+my $stop_flag;		# Stop the daemon and delete all config files
+my $release_flag;	# Stop the daemon, but leave config file
+my $renew_flag;		# Re-start the daemon.  Functionally same as start_flag
 my $temp_flag;
 my $params_only_flag;
 my $ifname;
@@ -70,6 +72,8 @@ sub gen_conf_file {
 
 GetOptions("start" => \$start_flag,
 	   "stop" => \$stop_flag,
+	   "release" => \$release_flag,
+	   "renew" => \$renew_flag,
 	   "temporary" => \$temp_flag,
 	   "parameters-only" => \$params_only_flag,
 	   "ifname=s" => \$ifname,
@@ -80,12 +84,36 @@ if ((defined $temp_flag) && (defined $params_only_flag)) {
     exit 1;
 }
 
+if (!defined $ifname) {
+    printf("Error: Interface name must be specified with --ifname parameter.\n");
+    exit 1;
+}
+
 my $pidfile = "/var/lib/dhcp3/dhclient_v6_$ifname.pid";
 my $leasefile = "/var/lib/dhcp3/dhclient_v6_$ifname.leases";
 my $conffile = "/var/lib/dhcp3/dhclient_v6_$ifname.conf";
 my $cmdname = "/sbin/dhclient";
 
-if (defined $stop_flag) {
+if (defined $release_flag) {
+    if (! -e $conffile) {
+	printf("DHCPv6 client is not configured on interface $ifname.\n");
+	exit 1;
+    }
+
+    if (! -e $pidfile) {
+	printf("DHCPv6 client is already released on interface $ifname.\n");
+	exit 1;
+    }
+}
+
+if (defined $renew_flag) {
+    if (! -e $conffile) {
+	printf("DHCPv6 client is not configured on interface $ifname.\n");
+	exit 1;
+    }
+}
+
+if (defined $stop_flag || defined $release_flag) {
     # Stop dhclient -6 on $ifname
 
     printf("Stopping daemon...\n");
@@ -96,10 +124,14 @@ if (defined $stop_flag) {
     printf("Deleting related files...\n");
     unlink($pidfile);
     unlink($leasefile);
-    unlink($conffile);
+    if (!defined $release_flag) {
+	# If just releasing, leave the config file around as a flag that
+	# DHCPv6 remains configured on this interface.
+	unlink($conffile);
+    }
 }
 
-if (defined $start_flag) {
+if (defined $start_flag || defined $renew_flag) {
     # Generate the DHCP client config file...
     gen_conf_file($conffile, $ifname);
 
