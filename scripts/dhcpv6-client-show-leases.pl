@@ -158,7 +158,7 @@ foreach my $lease_filename (@lease_files) {
 	} elsif ($line =~ /^.*\{/) {
 	    log_msg("Unknown clause: $line\n");
 	    $level++;
-	} elsif ($line =~ /\}/) {
+	} elsif ($line =~ /\}$/) {
 	    $level--;
 	    if ($level == 0) {
 		if (!defined($ia_na)) {
