@@ -68,6 +68,7 @@ if ($debug_flag) {
     print "lease files:", join(' ',@lease_files), "\n";
 }
 
+# Holds the most recent (last) entry for each interface
 my %ghash = ();
 
 foreach my $lease_filename (@lease_files) {
@@ -191,12 +192,19 @@ if ($num_entries == 0) {
 }
 
 printf("\n");
-printf("Interface IPv6 Address\n");
-printf("--------- ---------------------------------------\n");
+printf("Interface IPv6 Address                            Expires\n");
+printf("--------- --------------------------------------- ------------------------\n");
 foreach my $key (keys %ghash) {
     my $entry = $ghash{$key};
     my ($ia_na, $iaaddr, $starts, $max_life, $pref_life) = @$entry;
-    printf ("%-9s %-39s\n", $key, $iaaddr);
+    my $ts;
+    if (defined ($starts) && defined ($max_life)) {
+	my $exp_time = $starts + $max_life;
+	$ts = localtime($exp_time);
+    } else {
+	$ts = "Unknown";
+    }
+    printf ("%-9s %-39s %s\n", $key, $iaaddr, $ts);
 }
 
 
