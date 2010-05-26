@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.22) unstable; urgency=low
+
+  * Move DHCPv6 client op-mode commands to vyatta-op package.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Wed, 26 May 2010 16:33:55 -0700
+
 vyatta-ipv6-rtradv (0.21) unstable; urgency=low
 
   * Move DHCPv6 configuration to vyatta-cfg-system package.
