@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.23) unstable; urgency=low
+
+  * UNRELEASED
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Thu, 22 Jul 2010 17:24:32 -0700
+
 vyatta-ipv6-rtradv (0.22) unstable; urgency=low
 
   * Move DHCPv6 client op-mode commands to vyatta-op package.
