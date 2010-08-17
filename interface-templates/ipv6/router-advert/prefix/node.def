@@ -4,6 +4,5 @@ type: ipv6net
 
 help: Set IPv6 prefix to be advertised in Router Advertisements (RAs)
 
-comp_help: Possible completions:
- <ipv6net>\tIPv6 prefix to be advertized in Router Advertisements (RAs)
+val_help: ipv6net; IPv6 prefix to be advertized in Router Advertisements (RAs)
 

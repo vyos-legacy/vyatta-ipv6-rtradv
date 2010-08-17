@@ -5,7 +5,6 @@ help: Set value to be placed in "Router Lifetime" field in RAs
 # No default value.  Value will be determined algorithmically based on
 # value of MaxRtrAdvInterval if left unspecified by the user.
 
-comp_help: Possible completions:
- <4 - 9000>\tValue in seconds to be placed in "Router Lifetime" field in RAs
- 0\t\tPlace 0, meaning "not a default router", in Router Lifetime field
+val_help: u32:4-9000; Value in seconds to be placed in "Router Lifetime" field in RAs
+val_help: 0; Place 0, meaning "not a default router", in Router Lifetime field
 syntax:expression: ($VAR(@) == 0 || ($VAR(@) >= 4 && $VAR(@) <= 9000)) ; "Value must be 0 or between 4 and 9000"

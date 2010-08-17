@@ -4,8 +4,7 @@ type: ipv6net
 
 help: Set IPv6 address using EUI-64 based on MAC address
 
-comp_help:Possible completions:
-  <h:h:h:h/64>	64-bit IPv6 prefix to use with EUI-64 to make address
+val_help: <h:h:h:h/64>; 64-bit IPv6 prefix to use with EUI-64 to make address
 
 create:
 	if [ -e /proc/sys/net/ipv6/conf/$IFNAME ]; then

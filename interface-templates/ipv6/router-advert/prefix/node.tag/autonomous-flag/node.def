@@ -5,6 +5,5 @@ help: Whether prefix can be used for address auto-configuration
 # Default value per RFC-4861.
 default: true
 
-comp_help: Possible completions:
- true\tPrefix can be used for stateless address auto-configuration
- false\tPrefix can not be used for stateless address auto-configuration
+val_help: true; Prefix can be used for stateless address auto-configuration
+val_help: false; Prefix can not be used for stateless address auto-configuration

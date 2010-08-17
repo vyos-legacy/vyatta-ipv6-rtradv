@@ -5,8 +5,7 @@ help: Set time in seconds that the prefix will remain valid
 # Default per RFC-4861.
 default: "2592000"
 
-comp_help: Possible completions:
- <0 - MAX>\tTime in seconds that the prefix will remain valid
- infinity\tPrefix will remain valid forever
+val_help: <0-MAX>; Time in seconds that the prefix will remain valid
+val_help: infinity; Prefix will remain valid forever
 
 syntax:expression: ($VAR(@) == "infinity" || (pattern $VAR(@) "[0-9]*")) ; "Must be 'infinity' or a number"

@@ -4,8 +4,7 @@ default: 0
 
 help: Set value to be placed in "Reachable Time" field in RAs
 
-comp_help: Possible completions:
- <1 - 3600000>\tValue in milliseconds to be placed in Reachable Time field in RAs
- 0\t\tPlace 0, meaning "unspecified by this router", in Reachable Time field
+val_help: u32:1-3600000; Reachable Time value in RAs (in milliseconds)
+val_help: 0; Reachable Time 0 (i.e., unspecified by this router)
 
 syntax:expression: ($VAR(@) >= 0 && $VAR(@) <= 3600000) ; "Value must be between 0 and 3,600,000 milliseconds (1 hour)"

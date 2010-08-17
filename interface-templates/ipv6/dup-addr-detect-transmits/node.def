@@ -2,9 +2,8 @@ type: u32
 
 help: Set number of NS messages to send while performing DAD
 
-comp_help: Possible completions:
- 1 - N\tNumber of NS messages to send while performing DAD
- 0\tDisable Duplicate Address Dectection (DAD)
+val_help: <1-N>; Number of NS messages to send while performing DAD
+val_help: 0; Disable Duplicate Address Dectection (DAD)
 
 default: 1
 

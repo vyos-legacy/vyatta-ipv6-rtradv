@@ -6,7 +6,6 @@ help: Set minimum interval between unsolicited multicast RAs
 # on the value of MaxRtrAdvInterval if not set by the user. Algorithm
 # is specified in RFC-4861.
 
-comp_help: Possible completions:
- <3 - 1350>\tMinimum interval in seconds between unsolicited multicast RAs
+val_help: u32:3-1350; Minimum interval in seconds between unsolicited multicast RAs
 
 syntax:expression: ($VAR(@) >= 3 && $VAR(@) <= 1350) ; "Value must be between 3 and 1350"

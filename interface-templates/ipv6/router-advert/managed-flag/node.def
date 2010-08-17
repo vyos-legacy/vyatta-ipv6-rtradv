@@ -5,7 +5,6 @@ help: Set value for "managed address configuration" flag in RAs
 # Default value per RFC-4861.
 default: false
 
-comp_help: Possible completions:
- true	Place "true" in "managed address configuration" flag in RAs
- false	Place "false" in "managed address configuration" flag in RAs
+val_help: true; Place "true" in "managed address configuration" flag in RAs
+val_help: false; Place "false" in "managed address configuration" flag in RAs
 

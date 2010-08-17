@@ -11,7 +11,6 @@ help: Enable/disable sending RAs
 default: true
 
 
-comp_help: Possible completions:
- true	Enable sending RAs
- false	Disable sending RAs
+val_help: true; Enable sending RAs
+val_help: false; Disable sending RAs
 

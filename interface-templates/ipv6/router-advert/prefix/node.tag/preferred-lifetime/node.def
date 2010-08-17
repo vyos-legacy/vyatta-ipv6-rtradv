@@ -6,8 +6,7 @@ help: Set time in seconds that the prefix will remain preferred
 # AdvValidLifetime following guidelines in RFC-4861 if this value 
 # is left unspecified by the user.
 
-comp_help: Possible completions:
- <0 - MAX>\tTime in seconds that the prefix will remain preferred
- infinity\tPrefix will remain preferred forever
+val_help: <0-MAX>; Time in seconds that the prefix will remain preferred
+val_help: infinity; Prefix will remain preferred forever
 
 syntax:expression: ($VAR(@) == "infinity" || (pattern $VAR(@) "[0-9]*")) ; "Must be 'infinity' or a number"

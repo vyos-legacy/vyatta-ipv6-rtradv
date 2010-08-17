@@ -5,7 +5,6 @@ help: Set flag that prefix can be used for on-link determination
 # Default value per RFC-4861.
 default: true
 
-comp_help: Possible completions:
- true\tIndicates prefix can be used for on-link determination
- false\tIndicates prefix can not be used for on-link determination
+val_help: true; Prefix can be used for on-link determination
+val_help: false; Prefix can not be used for on-link determination
 
