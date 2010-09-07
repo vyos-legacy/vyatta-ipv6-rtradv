@@ -1,3 +1,11 @@
+vyatta-ipv6-rtradv (0.26) unstable; urgency=low
+
+  * Make comment in blacklist smaller
+  * Rename vyatta_ipv6_noautoconf to ipv6.conf
+  * Modprobe config file should not be executable
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 07 Sep 2010 10:14:19 -0700
+
 vyatta-ipv6-rtradv (0.25) unstable; urgency=low
 
   * UNRELEASED
