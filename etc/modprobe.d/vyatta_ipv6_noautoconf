@@ -1,27 +1,5 @@
-
-#
-# **** License ****
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License version 2 as
-# published by the Free Software Foundation.
-#
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# This code was originally developed by Vyatta, Inc.
-# Portions created by Vyatta are Copyright (C) 2009 Vyatta, Inc.
-# All Rights Reserved.
-# **** End License ****
-#
-# Author:  Bob Gilligan <gilligan@vyatta.com>
-# 
 # By default, the system will attempt to acquire IPv6 addresses using
-# stateless address auto-configuration (SLAAC) if IPv6 forwarding is
-# disabled.  But we do not want auto-configuration to be done unless
-# the user has explicitly configured it.  So, we set the autoconf
-# module parameter to 0.  This can be over-ridden per-interface by
-# writing "1" to /proc/sys/net/ipv6/conf/<ifname>/autoconf.
-#
+# stateless address auto-configuration (SLAAC) if IPv6 forwarding is disabled.
+# In Vyatta, this needs to be disabled unless the user has explicitly
+# configured it.
 options ipv6 autoconf=0
