@@ -22,6 +22,7 @@ AC_ARG_ENABLE([nostrip],
 
 AC_CONFIG_FILES(
   [Makefile]
+  [debian/vyatta-ipv6-rtradv.postinst]
   )
 
 AC_SUBST(NOSTRIP)

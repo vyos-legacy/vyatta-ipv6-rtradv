@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# comply with Squeeze version of modprobe; remove old version of
+# file during upgrade. file was renamed ipv6.conf in mendocino
+rm -f /etc/modprobe.d/vyatta_ipv6_noautoconf

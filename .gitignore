@@ -13,5 +13,8 @@
 /INSTALL
 /Makefile.in
 /Makefile
-debian/vyatta-ipv6-rtradv*
+/debian/vyatta-ipv6-rtradv
+/debian/vyatta-ipv6-rtradv.postinst
+/debian/vyatta-ipv6-rtradv.debhelper.log
+/debian/vyatta-ipv6-rtradv.substvars
 /generated-templates
