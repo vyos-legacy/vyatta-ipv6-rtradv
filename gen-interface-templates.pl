@@ -37,6 +37,9 @@ my %interface_hash = (
     'bonding/node.tag'                              => '$VAR(@)',
     'bonding/node.tag/vif/node.tag'                 => '$VAR(../@).$VAR(@)',
     'tunnel/node.tag'                               => '$VAR(@)',
+    'wireless/node.tag'                             => '$VAR(@)',
+    'wireless/node.tag/vif/node.tag'                => '$VAR(../@).$VAR(@)',
+    'pseudo-ethernet/node.tag'                      => '$VAR(@)',
     'bridge/node.tag'                               => '$VAR(@)',
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
@@ -52,54 +55,8 @@ my %interface_hash = (
     'serial/node.tag/ppp/vif/node.tag'         => '$VAR(../../@).$VAR(@)',
 );
 
-
-# Mapping from configuration level to config path string AT THAT LEVEL
-my %config_path_hash = (
-    'loopback/node.tag'                             => 
-	'interfaces loopback $VAR(@)',
-    'ethernet/node.tag'                             => 
-	'interfaces ethernet $VAR(@)',
-    'ethernet/node.tag/pppoe/node.tag'              => 
-	'interfaces ethernet $VAR(../@) pppoe VAR(@)',
-    'ethernet/node.tag/vif/node.tag'                => 
-	'interfaces ethernet $VAR(../@) vif $VAR(@)',
-    'ethernet/node.tag/vif/node.tag/pppoe/node.tag' => 
-	'interfaces ethernet $VAR(../../@) vif $VAR(../@) pppoe $VAR(@)',
-    'bonding/node.tag'                              => 
-	'interfaces bonding $VAR(@)',
-    'bonding/node.tag/vif/node.tag'                 => 
-	'interfaces bonding $VAR(../@) vif $VAR(@)',
-    'tunnel/node.tag'                               => 
-	'interfaces tunnel $VAR(@)',
-    'bridge/node.tag'                               => 
-	'interfaces bridge $VAR(@)',
-    'openvpn/node.tag'                              => 
-	'interfaces openvpn $VAR(@)',
-    'wirelessmodem/node.tag'                        => 
-	'interfaces wirelessmodem $VAR(@)',
-    'multilink/node.tag/vif/node.tag'               => 
-	'interfaces multilink $VAR(../@) vif $VAR(@)',
-
-    'adsl/node.tag/pvc/node.tag/bridged-ethernet' => 
-	'interfaces adsl $VAR(../../@) pvc $VAR(../@) bridged-ethernet',
-    'adsl/node.tag/pvc/node.tag/classical-ipoa'   => 
-	'interfaces adsl $VAR(../../@) pvc $VAR(../@) classical-ipoa',
-    'adsl/node.tag/pvc/node.tag/pppoa/node.tag'   => 
-	'interfaces adsl $VAR(../../@) pvc $VAR(../@) pppoa $VAR(@)',
-    'adsl/node.tag/pvc/node.tag/pppoe/node.tag'   => 
-	'interfaces adsl $VAR(../../@) pvc $VAR(../@) pppoe $VAR(@)',
-
-    'serial/node.tag/cisco-hdlc/vif/node.tag'  => 
-	'interfaces serial $VAR(../../@) cisco-hdlc vif $VAR(@)',
-    'serial/node.tag/frame-relay/vif/node.tag' => 
-	'interfaces serial $VAR(../../@) frame-relay vif $VAR(@)',
-    'serial/node.tag/ppp/vif/node.tag'         => 
-	'interfaces serial $VAR(../../@) ppp vif $VAR(@)',
-);
-
-
 sub gen_template {
-    my ( $inpath, $outpath, $ifname, $config_path ) = @_;
+    my ( $inpath, $outpath, $ifname ) = @_;
     
     print $outpath, "\n" if ($debug);
     opendir my $d, $inpath
@@ -116,14 +73,11 @@ sub gen_template {
             my $subif = $ifname;
             $subif =~ s#@\)#../@)#g if ($name ne 'node.tag');
 
-            my $sub_config_path = $config_path;
-            $sub_config_path =~ s#@\)#../@)#g if ($name ne 'node.tag');
-
             ( -d $out )
               or mkdir($out)
               or die "Can't create $out: $!";
 
-            gen_template( $in, $out, $subif, $sub_config_path );
+            gen_template( $in, $out, $subif );
             next;
         }
 
@@ -133,7 +87,6 @@ sub gen_template {
 
         while ( my $line = <$inf> ) {
             $line =~ s#\$IFNAME#$ifname#;
-            $line =~ s#\$CONFIG_PATH#$config_path#;
             print $outf $line;
         }
         close $inf;
@@ -164,8 +117,7 @@ foreach my $if_tree ( keys %interface_hash ) {
       or mkdir_p($outpath)
       or die "Can't create $outpath:$!";
 
-    gen_template( $inpath, $outpath, $interface_hash{$if_tree}, 
-		  $config_path_hash{$if_tree});
+    gen_template( $inpath, $outpath, $interface_hash{$if_tree} );
 }
 
 # Local Variables:

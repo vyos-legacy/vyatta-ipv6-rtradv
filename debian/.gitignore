@@ -1,0 +1,6 @@
+vyatta-ipv6-rtradv
+vyatta-ipv6-rtradv-serial
+vyatta-ipv6-rtradv.postinst
+*.debhelper.log
+*.substvars
+tmp
