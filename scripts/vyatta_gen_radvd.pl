@@ -77,7 +77,7 @@ GetOptions("generate=s"       => \$generate,
 );
 
 if ($generate) {
-    generate_conf($generate)
+    generate_conf($generate);
     exit 0;
 }
 
@@ -392,11 +392,10 @@ sub delete_conf {
     my $ifname = $_[0];
     log_msg("delete_conf ifname = $ifname\n");
 
-    my $exit_code;
     my $sedcmd = "sed -i -e \'/^interface $ifname {/,/^}/d\' $conf_file";
-    log_msg("sedcmd is $sedcmd \n");
+    log_msg("sedcmd is $sedcmd\n");
 
-    my $exit_code = system $sedcmd;
+    my $exit_code = system($sedcmd);
     log_msg("exit_code is $exit_code\n");
     if ($exit_code != 0) {
         printf("Unable to edit radvd system config file.  Exit code $exit_code\n");
