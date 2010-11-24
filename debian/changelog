@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.30) unstable; urgency=low
+
+  * Fix missing semicolon error
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 23 Nov 2010 19:00:48 -0800
+
 vyatta-ipv6-rtradv (0.29) unstable; urgency=low
 
   * remove deprecated linda override
