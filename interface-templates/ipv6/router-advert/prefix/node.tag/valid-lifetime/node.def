@@ -1,6 +1,5 @@
 type: txt
-
-help: Set time in seconds that the prefix will remain valid
+help: Time in seconds that the prefix will remain valid
 
 # Default per RFC-4861.
 default: "2592000"

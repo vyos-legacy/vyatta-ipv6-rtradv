@@ -1,6 +1,5 @@
 type: bool
-
-help:  Set value to be placed in the "other configuration" flag in RAs
+help: Value to be placed in the "other configuration" flag in RAs
 
 # Default value per RFC-4861.
 default: false

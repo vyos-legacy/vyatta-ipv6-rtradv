@@ -1,6 +1,5 @@
 type: u32
-
-help: Set minimum interval between unsolicited multicast RAs
+help: Minimum interval between unsolicited multicast RAs
 
 # No default value.  Value will be determined algorithmically based
 # on the value of MaxRtrAdvInterval if not set by the user. Algorithm

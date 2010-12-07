@@ -1,6 +1,5 @@
 type: bool
-
-help: Set value for "managed address configuration" flag in RAs
+help: Value for "managed address configuration" flag in RAs
 
 # Default value per RFC-4861.
 default: false

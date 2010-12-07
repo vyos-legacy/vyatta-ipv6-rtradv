@@ -1,6 +1,5 @@
 type: txt
-
-help: Set time in seconds that the prefix will remain preferred
+help: Time in seconds that the prefix will remain preferred
 
 # Default value will be set by back-end script based on value of
 # AdvValidLifetime following guidelines in RFC-4861 if this value 

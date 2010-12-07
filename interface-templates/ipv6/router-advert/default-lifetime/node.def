@@ -1,6 +1,5 @@
 type: u32
-
-help: Set value to be placed in "Router Lifetime" field in RAs
+help: Value to be placed in "Router Lifetime" field in RAs
 
 # No default value.  Value will be determined algorithmically based on
 # value of MaxRtrAdvInterval if left unspecified by the user.

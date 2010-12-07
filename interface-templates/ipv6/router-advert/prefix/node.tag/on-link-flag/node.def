@@ -1,6 +1,5 @@
 type: bool
-
-help: Set flag that prefix can be used for on-link determination
+help: Flag that prefix can be used for on-link determination
 
 # Default value per RFC-4861.
 default: true

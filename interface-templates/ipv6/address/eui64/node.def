@@ -1,8 +1,6 @@
 multi:
-
 type: ipv6net
-
-help: Set IPv6 address using EUI-64 based on MAC address
+help: Assign IPv6 address using EUI-64 based on MAC address
 
 val_help: <h:h:h:h/64>; 64-bit IPv6 prefix to use with EUI-64 to make address
 

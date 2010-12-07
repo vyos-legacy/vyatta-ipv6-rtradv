@@ -1,6 +1,5 @@
 type: u32
-
-help: Set value to be placed in the "Current Hop Limit" field in RAs
+help: Value to be placed in the "Current Hop Limit" field in RAs
 
 # Default value per Assignned Numbers RFC
 default: 64

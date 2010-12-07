@@ -1,6 +1,5 @@
 type: u32
-
-help: Set value of link MTU to place in RAs
+help: Value of link MTU to place in RAs
 
 # Default value per RFC-4861.
 default: 0

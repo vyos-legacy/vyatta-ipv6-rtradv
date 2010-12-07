@@ -1,8 +1,7 @@
 type: u32
+help: Value to be placed in "Reachable Time" field in RAs
 
 default: 0
-
-help: Set value to be placed in "Reachable Time" field in RAs
 
 val_help: u32:1-3600000; Reachable Time value in RAs (in milliseconds)
 val_help: 0; Reachable Time 0 (i.e., unspecified by this router)
