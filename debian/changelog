@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.31) unstable; urgency=low
+
+  * Fix help text
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Mon, 06 Dec 2010 17:08:32 -0800
+
 vyatta-ipv6-rtradv (0.30) unstable; urgency=low
 
   * Fix missing semicolon error
