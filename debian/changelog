@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.31+mendocino1) unstable; urgency=low
+
+  * new branch
+
+ -- An-Cheng Huang <ancheng@vyatta.com>  Tue, 28 Dec 2010 20:37:39 +0000
+
 vyatta-ipv6-rtradv (0.31) unstable; urgency=low
 
   * Fix help text
