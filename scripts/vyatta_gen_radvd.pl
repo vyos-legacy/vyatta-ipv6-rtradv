@@ -48,7 +48,7 @@
 
 use strict;
 use lib "/opt/vyatta/share/perl5/";
-use FileHandle;
+
 use Vyatta::Config;
 use Getopt::Long;
 use Vyatta::Interface;
@@ -349,8 +349,6 @@ sub generate_conf {
     log_msg("ifname = $ifname\n");
 
     # Generate temp config file for this interface
-
-    $FD_WR = new FileHandle();
 
     $temp_file = $temp_file . $$;
     if (!open($FD_WR, '>', $temp_file)) {
