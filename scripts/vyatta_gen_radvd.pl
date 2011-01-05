@@ -177,7 +177,7 @@ sub do_interface {
     my $ifname = shift;
     my $intf = new Vyatta::Interface($ifname);
     die "Unknown interface type $ifname\n" unless $intf;
-    my $param_root = $intf->path();
+    my $param_root = $intf->path() . " ipv6 router-advert";
     
     # RFC-4861 parameters and their default values.
     # Parameters with fixed defined default values have those values
