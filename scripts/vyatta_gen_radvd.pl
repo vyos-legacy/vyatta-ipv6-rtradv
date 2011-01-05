@@ -110,10 +110,9 @@ sub do_prefix {
 
     my @prefix_params = $config->listNodes("$param_root prefix $prefix");
     log_msg("prefix_params for prefix $prefix: @prefix_params\n");
-    
+
     # Read in parameters set by user
-    while (@prefix_params) {
-        my $prefix_param = shift @prefix_params;
+    foreach my $prefix_param (@prefix_params) {
         log_msg("prefix_param = $prefix_param\n");
 
         my $value = 
@@ -204,8 +203,7 @@ sub do_interface {
     log_msg("params = @params\n");
 
     # Read in top-level params...
-    while (@params) {
-        my $param = shift @params;
+    foreach my $param (@params) {
         log_msg("Node: $param \n");
 
         my $value = $config->returnValue("$param_root $param");
@@ -331,9 +329,8 @@ sub do_interface {
     # Process prefix params, if any
     my @prefix_params = $config->listNodes("$param_root prefix");
     log_msg("prefix_params = @prefix_params\n");
-    while (@prefix_params) {
-        my $prefix = shift @prefix_params;
-        
+
+    foreach my $prefix (@prefix_params) {
         log_msg("prefix = $prefix\n");
         do_prefix($param_root, $prefix);
     }
