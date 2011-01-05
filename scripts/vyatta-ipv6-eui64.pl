@@ -43,7 +43,7 @@
 
 use strict;
 use lib "/opt/vyatta/share/perl5/";
-use FileHandle;
+
 use Vyatta::Config;
 use Vyatta::TypeChecker;
 use Getopt::Long;
