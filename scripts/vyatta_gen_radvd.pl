@@ -53,7 +53,6 @@ use Vyatta::Config;
 use Getopt::Long;
 use Vyatta::Interface;
 
-my $temp_file="/tmp/radvd_config_if_";
 my $conf_file="/etc/radvd.conf";
 
 # Set to 1 to enable debug output
@@ -341,42 +340,35 @@ sub do_interface {
 
 sub generate_conf {
     my $ifname = shift;
-    my $exit_code;
-
     log_msg("ifname = $ifname\n");
 
-    # Generate temp config file for this interface
+    # Generate config file for this interface into temporary string buffer
+    my $conf_buffer;
 
-    $temp_file = $temp_file . $$;
-    if (!open($FD_WR, '>', $temp_file)) {
-        printf("can't open temp file: $temp_file\n");
-        exit 1;
-    }
+    open $FD_WR, '>', \$conf_buffer
+        or die "can't open temporary buffer: $!";
 
     $config = new Vyatta::Config;
 
     # Generate config file section for interface into temp file
     do_interface($ifname);
 
-    # Ensure that the config file exists
-    system "touch $conf_file";
+    close $FD_WR;
 
-    # Delete old parameter section for interface from global config file
-    delete_conf($ifname);
+    if ( -e $conf_file ) {
+        # Delete old parameter section for interface from global config file
+        delete_conf($ifname);
+    }
 
     # Cat newly generated temp file into global config file
     log_msg("copying in tempfile...\n");
 
-    $exit_code = system "cat $temp_file >> $conf_file";
+    open my $CFG, '>>', $conf_file
+        or die "can't open $conf_file: $!";
 
-    log_msg("exit_code is $exit_code\n");
+    print {$CFG} $conf_buffer;
 
-    if ($exit_code != 0) {
-        printf("Unable add new configuration radvd system config file.\n");
-        exit 1;
-    }
-
-    system "rm -f $temp_file";
+    close $CFG;
 }
 
 
