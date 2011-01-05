@@ -1,3 +1,12 @@
+vyatta-ipv6-rtradv (0.31+mendocino2) unstable; urgency=low
+
+  * Remove unnecessary FileHandle
+  * Fix ipv6 parameter path
+  * Use perl foreach loop
+  * Generate configuration to buffer not temporary file
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Tue, 04 Jan 2011 18:21:57 -0800
+
 vyatta-ipv6-rtradv (0.31+mendocino1) unstable; urgency=low
 
   * new branch
