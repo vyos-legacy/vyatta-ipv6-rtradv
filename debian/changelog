@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.31+mendocino3) unstable; urgency=low
+
+  * Remove unnecessary dependency on FileHandle
+
+ -- Stephen Hemminger <stephen.hemminger@vyatta.com>  Thu, 20 Jan 2011 08:16:21 -0800
+
 vyatta-ipv6-rtradv (0.31+mendocino2) unstable; urgency=low
 
   * Remove unnecessary FileHandle
