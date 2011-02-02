@@ -22,7 +22,7 @@ Description: Vyatta config and op mode templates for IPv6 Router Advertisements
 
 Package: vyatta-ipv6-rtradv-serial
 Architecture: all
-Depends: vyatta-ipv6-rtradv
+Depends: vyatta-ipv6-rtradv, vyatta-serial
 Replaces: vyatta-ipv6-rtradv
 Description: vyatta-ipv6-rtradv serial templates
  Vyatta configuration templates for IPv6 Router Advertisements
