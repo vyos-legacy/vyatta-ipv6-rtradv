@@ -193,7 +193,8 @@ sub do_interface {
                        'AdvReachableTime' => '0',
                        'AdvRetransTimer' => '0',
                        'AdvCurHopLimit' => '64',
-                       'AdvDefaultLifetime' => '-1' );
+                       'AdvDefaultLifetime' => '-1',
+                       'AdvDefaultPreference' => 'medium' );
 
 
 
@@ -240,6 +241,8 @@ sub do_interface {
             $param_hash{'AdvCurHopLimit'} = $value;
         } elsif ($param eq "default-lifetime") {
             $param_hash{'AdvDefaultLifetime'} = $value;
+        } elsif ($param eq "default-preference") {
+            $param_hash{'AdvDefaultPreference'} = $value;
         } elsif ($param eq "prefix") {
             # Skip for now.  We'll do these later.
         }
