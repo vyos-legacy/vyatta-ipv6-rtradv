@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.35) unstable; urgency=low
+
+  * Bugfix 6917: Add support for AdvDefaultPreference parameter.
+
+ -- Bob Gilligan <gilligan@vyatta.com>  Sun, 03 Jul 2011 11:41:23 -0700
+
 vyatta-ipv6-rtradv (0.34) unstable; urgency=low
 
   * Parital fix for bug 6759 serial packages are incorrectly included in
