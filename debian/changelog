@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.36) unstable; urgency=low
+
+  * new branch
+
+ -- Deepti Kulkarni <deepti@vyatta.com>  Thu, 07 Jul 2011 20:57:09 -0700
+
 vyatta-ipv6-rtradv (0.35) unstable; urgency=low
 
   * Bugfix 6917: Add support for AdvDefaultPreference parameter.
