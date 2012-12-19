@@ -27,3 +27,10 @@ Replaces: vyatta-ipv6-rtradv
 Description: vyatta-ipv6-rtradv serial templates
  Vyatta configuration templates for IPv6 Router Advertisements
  for serial devices
+
+Package: vyatta-ipv6-rtradv-dataplane
+Architecture: all
+Depends: vyatta-ipv6-rtradv, vyatta-cfg-dataplane
+Description: Vyatta config and op mode templates for IPv6 Router Advertisements
+ Vyatta config and op mode templates for Router Advertisements for dataplane
+ interfaces
