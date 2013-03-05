@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.39) unstable; urgency=low
+
+  * Split legacy interface templates into separate package
+
+ -- John Southworth <john.southworth@vyatta.com>  Mon, 04 Mar 2013 16:30:45 -0800
+
 vyatta-ipv6-rtradv (0.38) unstable; urgency=low
 
   * new branch
