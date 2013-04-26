@@ -10,6 +10,9 @@ config.status
 config.sub
 configure
 debian/files
+debian/vyatta-ipv6-rtradv
+debian/vyatta-ipv6-rtradv-serial
+debian/vyatta-ipv6-rtradv-dataplane
 debian/vyatta-ipv6-rtradv-extra
 INSTALL
 Makefile.in

@@ -31,7 +31,13 @@ Description: vyatta-ipv6-rtradv serial templates
 Package: vyatta-ipv6-rtradv-extra
 Architecture: all
 Depends: vyatta-ipv6-rtradv
-Replaces: vyatta-ipv6-rtradv
 Description: vyatta-ipv6-rtradv extra templates
  vyatta configuration templates for ipv6 router advertisements
  for some devices
+
+Package: vyatta-ipv6-rtradv-dataplane
+Architecture: all
+Depends: vyatta-ipv6-rtradv, vplane-config
+Description: vyatta-ipv6-rtradv extra templates
+ vyatta configuration templates for ipv6 router advertisements
+ for some dataplane devices
