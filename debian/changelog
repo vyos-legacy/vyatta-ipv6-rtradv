@@ -1,3 +1,11 @@
+vyatta-ipv6-rtradv (0.40) unstable; urgency=low
+
+  * move pppoe to extra package
+  * add templates for dataplane interfaces
+  * add config templates for dataplane interfaces
+
+ -- Stephen Hemminger <stephen@networkplumber.org>  Fri, 26 Apr 2013 13:18:36 -0700
+
 vyatta-ipv6-rtradv (0.39) unstable; urgency=low
 
   * Split legacy interface templates into separate package
