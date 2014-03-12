@@ -245,6 +245,8 @@ sub do_interface {
             $param_hash{'AdvDefaultPreference'} = $value;
         } elsif ($param eq "prefix") {
             # Skip for now.  We'll do these later.
+        } elsif ($param eq "name-server") {
+            # Skip for now. Hack will be inserted at the end
         }
     }
 
@@ -335,6 +337,17 @@ sub do_interface {
     foreach my $prefix (@prefix_params) {
         log_msg("prefix = $prefix\n");
         do_prefix($param_root, $prefix);
+    }
+
+    # Process Name Servers
+    my @nameservers = $config->returnValues("$param_root name-server");
+    log_msg("nameservers = @nameservers\n");
+    if (@nameservers) {.
+        print $FD_WR "    RDNSS ";
+        foreach my $nameserver (@nameservers) {
+            print $FD_WR "$nameserver ";
+        }
+        print $FD_WR "{\n    };\n";
     }
 
     # Finish off config file
