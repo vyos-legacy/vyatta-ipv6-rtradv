@@ -342,7 +342,7 @@ sub do_interface {
     # Process Name Servers
     my @nameservers = $config->returnValues("$param_root name-server");
     log_msg("nameservers = @nameservers\n");
-    if (@nameservers) {.
+    if (@nameservers) {
         print $FD_WR "    RDNSS ";
         foreach my $nameserver (@nameservers) {
             print $FD_WR "$nameserver ";
