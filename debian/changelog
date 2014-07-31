@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.38+vyos1+helium3) unstable; urgency=low
+
+  * Remove stray dot after brace.
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 01 Aug 2014 01:17:06 +0200
+
 vyatta-ipv6-rtradv (0.38+vyos1+helium2) unstable; urgency=low
 
   [ Ivan Malyarchuk ]
