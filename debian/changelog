@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.38+vyos1+helium4) unstable; urgency=low
+
+  * Bug #274: add value completion for IPv6 RA boolean options.
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 01 Aug 2014 18:53:06 +0200
+
 vyatta-ipv6-rtradv (0.38+vyos1+helium3) unstable; urgency=low
 
   * Remove stray dot after brace.
