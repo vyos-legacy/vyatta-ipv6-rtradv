@@ -9,7 +9,7 @@ help: Enable/disable sending RAs
 # this value unspecified serves to enable sending route adverts.
 
 default: true
-
+allowed: echo -n "true false"
 
 val_help: true; Enable sending RAs
 val_help: false; Disable sending RAs
