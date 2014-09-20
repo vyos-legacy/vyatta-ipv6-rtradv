@@ -44,6 +44,8 @@ my %interface_hash = (
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
     'multilink/node.tag/vif/node.tag'               => '$VAR(../@)',
+    'l2tpv3/node.tag'                              => '$VAR(@)',
+    'vxlan/node.tag'                              => '$VAR(@)',
 
     'adsl/node.tag/pvc/node.tag/bridged-ethernet' => '$VAR(../../@)',
     'adsl/node.tag/pvc/node.tag/classical-ipoa'   => '$VAR(../../@)',
