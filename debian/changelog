@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.38+vyos1+helium5) unstable; urgency=low
+
+  * Add L2TPv3 and VXLAN to generated templates.
+
+ -- Daniil Baturin <daniil@baturin.org>  Sat, 20 Sep 2014 10:15:14 +0200
+
 vyatta-ipv6-rtradv (0.38+vyos1+helium4) unstable; urgency=low
 
   * Bug #274: add value completion for IPv6 RA boolean options.
