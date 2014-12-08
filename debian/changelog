@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.38+vyos2+lithium1) unstable; urgency=low
+
+  * New branch
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Mon, 08 Dec 2014 14:24:48 +0000
+ 
 vyatta-ipv6-rtradv (0.38+vyos1+helium5) unstable; urgency=low
 
   * Add L2TPv3 and VXLAN to generated templates.
