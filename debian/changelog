@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (0.38+vyos2+lithium2) unstable; urgency=low
+
+  * Force release
+
+ -- Alex Harpin <development@landsofshadow.co.uk>  Tue, 16 Dec 2014 07:48:14 +0000
+ 
 vyatta-ipv6-rtradv (0.38+vyos2+lithium1) unstable; urgency=low
 
   * New branch
