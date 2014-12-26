@@ -1,7 +1,7 @@
 Source: vyatta-ipv6-rtradv
 Section: contrib/net
 Priority: extra
-Maintainer: Vyatta Package Maintainers <maintainers@vyatta.com>
+Maintainer: VyOS Package Maintainers <maintainers@vyos.net>
 Build-Depends: debhelper (>= 5), autotools-dev
 Standards-Version: 3.7.2
 
@@ -17,13 +17,13 @@ Depends: sed (>= 4.1.5),
  sudo,
  radvd
 Suggests: util-linux (>= 2.13-5),
-Description: Vyatta config and op mode templates for IPv6 Router Advertisements
- Vyatta config and op mode templates for Router Advertisements
+Description: VyOS config and op mode templates for IPv6 Router Advertisements
+ VyOS config and op mode templates for Router Advertisements
 
 Package: vyatta-ipv6-rtradv-serial
 Architecture: all
 Depends: vyatta-ipv6-rtradv, vyatta-serial
 Replaces: vyatta-ipv6-rtradv
-Description: vyatta-ipv6-rtradv serial templates
- Vyatta configuration templates for IPv6 Router Advertisements
+Description: VyOS configuration serial templates for IPv6 Router Advertisements
+ VyOS configuration templates for IPv6 Router Advertisements
  for serial devices
