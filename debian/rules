@@ -22,6 +22,7 @@ configure	+= --build=$(DEB_BUILD_GNU_TYPE)
 configure	+= --prefix=/opt/vyatta
 configure	+= --mandir=\$${prefix}/share/man
 configure	+= --infodir=\$${prefix}/share/info
+configure	+= --sysconfdir=\$${prefix}/etc
 
 configure: configure.ac Makefile.am
 	chmod +x debian/autogen.sh

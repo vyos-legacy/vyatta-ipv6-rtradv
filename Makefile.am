@@ -5,7 +5,7 @@ libudevdir	 = /lib/udev
 etcudevdir	 = /etc/udev
 initddir	 = /etc/init.d
 gentmpdir	 = generated-templates
-modprobedir	 = /etc/modprobe.d
+modprobedir	 = $(sysconfdir)/modprobe.d
 
 sysconf_DATA	 =
 sbin_SCRIPTS	 =
@@ -29,7 +29,3 @@ clean-local:
 
 install-exec-hook:
 	cd $(gentmpdir); $(cpiop) $(DESTDIR)$(cfgdir) ; cd ..
-
-
-
-
