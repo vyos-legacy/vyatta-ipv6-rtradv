@@ -1,3 +1,12 @@
+vyatta-ipv6-rtradv (0.38+vyos2+lithium6) unstable; urgency=low
+
+  [ Patrick van Staveren ]
+  * Bug 600: Fix ipv6 autoconf for PPPoE
+
+  [ Daniil Baturin ]
+
+ -- Daniil Baturin <daniil@baturin.org>  Tue, 10 Nov 2015 08:47:56 +0100
+
 vyatta-ipv6-rtradv (0.38+vyos2+lithium5) unstable; urgency=low
 
   * vyatta-ipv6-rtradv: update dh_gencontrol with new development flag
