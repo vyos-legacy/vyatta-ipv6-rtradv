@@ -43,18 +43,8 @@ my %interface_hash = (
     'bridge/node.tag'                               => '$VAR(@)',
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
-    'multilink/node.tag/vif/node.tag'               => '$VAR(../@)',
     'l2tpv3/node.tag'                               => '$VAR(@)',
     'vxlan/node.tag'                                => '$VAR(@)',
-
-    'adsl/node.tag/pvc/node.tag/bridged-ethernet' => '$VAR(../../@)',
-    'adsl/node.tag/pvc/node.tag/classical-ipoa'   => '$VAR(../../@)',
-    'adsl/node.tag/pvc/node.tag/pppoa/node.tag'   => '$VAR(../../@)',
-    'adsl/node.tag/pvc/node.tag/pppoe/node.tag'   => '$VAR(../../@)',
-
-    'serial/node.tag/cisco-hdlc/vif/node.tag'  => '$VAR(../../@).$VAR(@)',
-    'serial/node.tag/frame-relay/vif/node.tag' => '$VAR(../../@).$VAR(@)',
-    'serial/node.tag/ppp/vif/node.tag'         => '$VAR(../../@).$VAR(@)',
 );
 
 sub gen_template {
