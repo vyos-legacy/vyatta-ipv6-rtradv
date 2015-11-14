@@ -44,8 +44,8 @@ my %interface_hash = (
     'openvpn/node.tag'                              => '$VAR(@)',
     'wirelessmodem/node.tag'                        => '$VAR(@)',
     'multilink/node.tag/vif/node.tag'               => '$VAR(../@)',
-    'l2tpv3/node.tag'                              => '$VAR(@)',
-    'vxlan/node.tag'                              => '$VAR(@)',
+    'l2tpv3/node.tag'                               => '$VAR(@)',
+    'vxlan/node.tag'                                => '$VAR(@)',
 
     'adsl/node.tag/pvc/node.tag/bridged-ethernet' => '$VAR(../../@)',
     'adsl/node.tag/pvc/node.tag/classical-ipoa'   => '$VAR(../../@)',
@@ -58,28 +58,28 @@ my %interface_hash = (
 );
 
 sub gen_template {
-    my ( $inpath, $outpath, $ifname ) = @_;
-    
+    my ($inpath, $outpath, $ifname) = @_;
+
     print $outpath, "\n" if ($debug);
     opendir my $d, $inpath
-      or die "Can't open: $inpath:$!";
+        or die "Can't open: $inpath:$!";
 
     # walk through sample templates
-    foreach my $name ( grep { !/^\./ } readdir $d ) {
-        
+    foreach my $name (grep {!/^\./} readdir $d) {
+
         my $in  = "$inpath/$name";
         my $out = "$outpath/$name";
 
-	# recurse into subdirectory
-        if ( -d $in ) {
+        # recurse into subdirectory
+        if (-d $in) {
             my $subif = $ifname;
             $subif =~ s#@\)#../@)#g if ($name ne 'node.tag');
 
-            ( -d $out )
-              or mkdir($out)
-              or die "Can't create $out: $!";
+            (-d $out)
+                or mkdir($out)
+                or die "Can't create $out: $!";
 
-            gen_template( $in, $out, $subif );
+            gen_template($in, $out, $subif);
             next;
         }
 
@@ -87,7 +87,7 @@ sub gen_template {
         open my $inf,  '<', $in  or die "Can't open $in: $!";
         open my $outf, '>', $out or die "Can't open $out: $!";
 
-        while ( my $line = <$inf> ) {
+        while (my $line = <$inf>) {
             $line =~ s#\$IFNAME#$ifname#;
             print $outf $line;
         }
@@ -100,11 +100,11 @@ sub gen_template {
 sub mkdir_p {
     my $path = shift;
 
-    return 1 if ( mkdir($path) );
+    return 1 if (mkdir($path));
 
-    my $pos = rindex( $path, "/" );
+    my $pos = rindex($path, "/");
     return unless $pos != -1;
-    return unless mkdir_p( substr( $path, 0, $pos ) );
+    return unless mkdir_p(substr($path, 0, $pos));
     return mkdir($path);
 }
 
@@ -112,14 +112,14 @@ die "Usage: $0 output_directory\n" if ($#ARGV < 0);
 
 my $outdir = $ARGV[0];
 
-foreach my $if_tree ( keys %interface_hash ) {
+foreach my $if_tree (keys %interface_hash) {
     my $inpath  = "interface-templates";
     my $outpath = "$outdir/interfaces/$if_tree";
-    ( -d $outpath )
-      or mkdir_p($outpath)
-      or die "Can't create $outpath:$!";
+    (-d $outpath)
+        or mkdir_p($outpath)
+        or die "Can't create $outpath:$!";
 
-    gen_template( $inpath, $outpath, $interface_hash{$if_tree} );
+    gen_template($inpath, $outpath, $interface_hash{$if_tree});
 }
 
 # Local Variables:
