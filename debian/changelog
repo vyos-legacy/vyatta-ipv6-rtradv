@@ -1,3 +1,13 @@
+vyatta-ipv6-rtradv (0.38+vyos2+lithium7) unstable; urgency=low
+
+  [ Alex Harpin ]
+  * vyatta-ipv6-rtradv: formatting changes for style consistency
+  * vyatta-ipv6-rtradv: drop ipv6 templates for unsupported interface types
+  * vyatta-ipv6-rtradv: drop the vyatta-ipv6-rtradv-serial package
+  * vyatta-ipv6-rtradv: add node priority to template generated interfaces
+  
+ -- Alex Harpin <development@landsofshadow.co.uk>  Sat, 14 Nov 2015 15:17:24 +0000
+ 
 vyatta-ipv6-rtradv (0.38+vyos2+lithium6) unstable; urgency=low
 
   [ Patrick van Staveren ]
