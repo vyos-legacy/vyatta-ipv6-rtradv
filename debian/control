@@ -20,10 +20,3 @@ Suggests: util-linux (>= 2.13-5),
 Description: VyOS config and op mode templates for IPv6 Router Advertisements
  VyOS config and op mode templates for Router Advertisements
 
-Package: vyatta-ipv6-rtradv-serial
-Architecture: all
-Depends: vyatta-ipv6-rtradv, vyatta-serial
-Replaces: vyatta-ipv6-rtradv
-Description: VyOS configuration serial templates for IPv6 Router Advertisements
- VyOS configuration templates for IPv6 Router Advertisements
- for serial devices

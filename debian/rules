@@ -61,7 +61,7 @@ install: build
 
 	$(MAKE) DESTDIR=$(PKGDIR) install
 
-	for p in vyatta-ipv6-rtradv vyatta-ipv6-rtradv-serial; do \
+	for p in vyatta-ipv6-rtradv; do \
 	  install -D --mode=0644 debian/$$p.lintian-overrides \
 		debian/$$p/usr/share/lintian/overrides/$$p; \
 	done
