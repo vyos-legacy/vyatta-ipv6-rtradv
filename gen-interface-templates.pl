@@ -28,27 +28,28 @@ use warnings;
 my $debug = $ENV{'DEBUG'};
 
 # Mapping from configuration level to ifname used AT THAT LEVEL
+# Priority values are taken from the relevant node, any changes to those need to be reflected here.
 my %interface_hash = (
-    'loopback/node.tag'                             => '$VAR(@)',
-    'ethernet/node.tag'                             => '$VAR(@)',
-    'ethernet/node.tag/pppoe/node.tag'              => 'pppoe$VAR(@)',
-    'ethernet/node.tag/vif/node.tag'                => '$VAR(../@).$VAR(@)',
-    'ethernet/node.tag/vif/node.tag/pppoe/node.tag' => 'pppoe$VAR(@)',
-    'bonding/node.tag'                              => '$VAR(@)',
-    'bonding/node.tag/vif/node.tag'                 => '$VAR(../@).$VAR(@)',
-    'tunnel/node.tag'                               => '$VAR(@)',
-    'wireless/node.tag'                             => '$VAR(@)',
-    'wireless/node.tag/vif/node.tag'                => '$VAR(../@).$VAR(@)',
-    'pseudo-ethernet/node.tag'                      => '$VAR(@)',
-    'bridge/node.tag'                               => '$VAR(@)',
-    'openvpn/node.tag'                              => '$VAR(@)',
-    'wirelessmodem/node.tag'                        => '$VAR(@)',
-    'l2tpv3/node.tag'                               => '$VAR(@)',
-    'vxlan/node.tag'                                => '$VAR(@)',
+    'loopback/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '300'},
+    'ethernet/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '318'},
+    'ethernet/node.tag/pppoe/node.tag'              => {'if_name' => 'pppoe$VAR(@)', 'priority' => '319'},
+    'ethernet/node.tag/vif/node.tag'                => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '319'},
+    'ethernet/node.tag/vif/node.tag/pppoe/node.tag' => {'if_name' => 'pppoe$VAR(@)', 'priority' => '320'},
+    'bonding/node.tag'                              => {'if_name' => '$VAR(@)', 'priority' => '315'},
+    'bonding/node.tag/vif/node.tag'                 => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '320'},
+    'tunnel/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '380'},
+    'wireless/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '318'},
+    'wireless/node.tag/vif/node.tag'                => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '322'},
+    'pseudo-ethernet/node.tag'                      => {'if_name' => '$VAR(@)', 'priority' => '319'},
+    'bridge/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '310'},
+    'openvpn/node.tag'                              => {'if_name' => '$VAR(@)', 'priority' => '460'},
+    'wirelessmodem/node.tag'                        => {'if_name' => '$VAR(@)', 'priority' => '350'},
+    'l2tpv3/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '460'},
+    'vxlan/node.tag'                                => {'if_name' => '$VAR(@)', 'priority' => '460'},
 );
 
 sub gen_template {
-    my ($inpath, $outpath, $ifname) = @_;
+    my ($inpath, $outpath, $ifname, $priority) = @_;
 
     print $outpath, "\n" if ($debug);
     opendir my $d, $inpath
@@ -69,7 +70,7 @@ sub gen_template {
                 or mkdir($out)
                 or die "Can't create $out: $!";
 
-            gen_template($in, $out, $subif);
+            gen_template($in, $out, $subif, $priority);
             next;
         }
 
@@ -77,7 +78,14 @@ sub gen_template {
         open my $inf,  '<', $in  or die "Can't open $in: $!";
         open my $outf, '>', $out or die "Can't open $out: $!";
 
+        if ($out =~ /autoconf/) {
+            $priority += 2;
+        } elsif ( $out =~ /disable-forwarding/) {
+            $priority += 1;
+        }
+
         while (my $line = <$inf>) {
+            $line =~ s#\$PRIORITY#$priority#;
             $line =~ s#\$IFNAME#$ifname#;
             print $outf $line;
         }
@@ -109,7 +117,7 @@ foreach my $if_tree (keys %interface_hash) {
         or mkdir_p($outpath)
         or die "Can't create $outpath:$!";
 
-    gen_template($inpath, $outpath, $interface_hash{$if_tree});
+    gen_template($inpath, $outpath, $interface_hash{$if_tree}{'if_name'}, $interface_hash{$if_tree}{'priority'});
 }
 
 # Local Variables:

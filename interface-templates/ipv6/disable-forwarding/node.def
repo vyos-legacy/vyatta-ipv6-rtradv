@@ -1,4 +1,5 @@
 
+priority: $PRIORITY
 help: Disable IPv6 forwarding on this interface only
 
 create:

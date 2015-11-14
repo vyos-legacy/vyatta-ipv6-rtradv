@@ -2,6 +2,7 @@
 # This is a valueless node, hence has no type associated with it.
 #
 
+priority: $PRIORITY
 help: Enable acquisition of IPv6 address using stateless autoconfig
 
 update:
