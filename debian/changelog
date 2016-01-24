@@ -1,3 +1,15 @@
+vyatta-ipv6-rtradv (0.38+vyos2+current1) unstable; urgency=medium
+
+  [ UnicronNL ]
+  * Make it compile in debian jessie
+
+  [ Thomas Jepp ]
+  * Fix build depends and remove the opt/vyatta/etc directory from debian/vyatta-ipv6-rtradv.install (was causing a build failure).
+
+  [ Kim Hagen ]
+
+ -- Kim Hagen <kim.sidney@gmail.com>  Sun, 24 Jan 2016 15:15:57 -0500
+
 vyatta-ipv6-rtradv (0.38+vyos2+lithium7) unstable; urgency=low
 
   [ Alex Harpin ]
