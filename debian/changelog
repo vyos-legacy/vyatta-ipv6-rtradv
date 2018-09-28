@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (1.2.0-1) stable; urgency=medium
+
+  * New branch.
+
+ -- Daniil Baturin <daniil@baturin.org>  Fri, 28 Sep 2018 21:58:24 +0200
+
 vyatta-ipv6-rtradv (0.38+vyos2+current1) unstable; urgency=medium
 
   [ UnicronNL ]
