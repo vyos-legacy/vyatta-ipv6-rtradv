@@ -185,6 +185,7 @@ sub do_interface {
     # over-ride them.  If the user doesn't select a value, a final
     # value is determined later on.
     my %param_hash = ( 'AdvSendAdvert' => 'off',
+                       'AdvIntervalOpt' => 'off',
                        'MaxRtrAdvInterval' => 600,
                        'MinRtrAdvInterval' => -1,
                        'AdvManagedFlag' => 'off',
@@ -228,6 +229,7 @@ sub do_interface {
         } elsif ($param eq "send-advert") {
             if ($value eq "true") {
                 $param_hash{'AdvSendAdvert'} = 'on';
+                $param_hash{'AdvIntervalOpt'} = 'on';
             } else {
                 $param_hash{'AdvSendAdvert'} = 'off';
             }
