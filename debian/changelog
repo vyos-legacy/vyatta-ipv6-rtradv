@@ -1,3 +1,10 @@
+vyatta-ipv6-rtradv (1.2.5) unstable; urgency=medium
+
+  * New dnssl option.
+  * Fix RA broken on boot.
+
+ -- Daniil Baturin <daniil@vyos.io>  Mon, 09 Mar 2020 13:34:00 +0100
+
 vyatta-ipv6-rtradv (1.2.4) unstable; urgency=low
 
   * New release.
