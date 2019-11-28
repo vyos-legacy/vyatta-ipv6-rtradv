@@ -352,6 +352,17 @@ sub do_interface {
         print $FD_WR "{\n    };\n";
     }
 
+    # Process Search lists
+    my @searchlists = $config->returnValues("$param_root dns-searchlists");
+    log_msg("nameservers = @searchlists\n");
+    if (@searchlists)  {
+        print $FD_WR "    DNSSL ";
+        foreach my $searchdom (@searchlists) {
+            print $FD_WR "$searchdom ";
+        }
+        print $FD_WR "{\n    };\n";
+    }
+
     # Finish off config file
     print $FD_WR "};\n";
 }
