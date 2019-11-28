@@ -353,11 +353,11 @@ sub do_interface {
     }
 
     # Process Search lists
-    my @searchlists = $config->returnValues("$param_root dns-searchlists");
-    log_msg("nameservers = @searchlists\n");
-    if (@searchlists)  {
+    my @dnssl = $config->returnValues("$param_root dnssl");
+    log_msg("searchdomain = @dnssl\n");
+    if (@dnssl)  {
         print $FD_WR "    DNSSL ";
-        foreach my $searchdom (@searchlists) {
+        foreach my $searchdom (@dnssl) {
             print $FD_WR "$searchdom ";
         }
         print $FD_WR "{\n    };\n";
