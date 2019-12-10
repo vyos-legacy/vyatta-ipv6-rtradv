@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (1.2.4) unstable; urgency=low
+
+  * New release.
+
+ -- VyOS maintainers <maintainers@vyos.io>  Tue, 10 Dec 2019 23:40:06 +0200
+
 vyatta-ipv6-rtradv (1.2.0-1) stable; urgency=medium
 
   * New branch.
@@ -353,4 +359,3 @@ vyatta-ipv6-rtradv (0.1) unstable; urgency=low
   * Initial Release.
 
  -- Bob Gilligan <gilligan@vyatta.com>  Wed, 12 Aug 2009 15:26:18 -0700
-
