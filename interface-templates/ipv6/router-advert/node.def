@@ -18,7 +18,7 @@ end:
 	    fi
 	fi
 
-	if [ -e /run/radvd.pid ]; the
+	if [ -e /run/radvd.pid ]; then
 	    if [ -s /etc/radvd.conf ]; then
 		echo "Re-starting radvd..."
 		sudo /etc/init.d/radvd restart
