@@ -20,8 +20,8 @@ end:
 
 	if [ -e /run/radvd.pid ]; then
 	    if [ -s /etc/radvd.conf ]; then
-		echo "Re-starting radvd..."
-		sudo /etc/init.d/radvd restart
+		echo "Reload radvd..."
+		sudo /etc/init.d/radvd reload
 	    else
 		echo "Stopping radvd..."
 		sudo /etc/init.d/radvd stop
