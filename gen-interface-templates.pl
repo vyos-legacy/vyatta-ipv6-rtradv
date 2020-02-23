@@ -32,9 +32,7 @@ my $debug = $ENV{'DEBUG'};
 my %interface_hash = (
     'loopback/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '300'},
     'ethernet/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '318'},
-    'ethernet/node.tag/pppoe/node.tag'              => {'if_name' => 'pppoe$VAR(@)', 'priority' => '319'},
     'ethernet/node.tag/vif/node.tag'                => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '319'},
-    'ethernet/node.tag/vif/node.tag/pppoe/node.tag' => {'if_name' => 'pppoe$VAR(@)', 'priority' => '320'},
     'bonding/node.tag'                              => {'if_name' => '$VAR(@)', 'priority' => '315'},
     'bonding/node.tag/vif/node.tag'                 => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '320'},
     'tunnel/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '380'},

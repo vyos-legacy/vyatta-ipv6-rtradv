@@ -21,8 +21,6 @@ cpiop = find  . ! -regex '\(.*~\|.*\.bak\|.*\.swp\|.*\#.*\#\)' -print0 | \
 all-local:
 	rm -rf $(gentmpdir)
 	./gen-interface-templates.pl $(gentmpdir)
-# Only the radvd functions are compatible with pppoe interfaces; other functions are implemented in vyatta-cfg-op-pppoe
-	rm -r $(gentmpdir)/interfaces/ethernet/node.tag/pppoe/node.tag/ipv6/{address,disable-forwarding,dup-addr-detect-transmits}
 
 clean-local:
 	rm -rf $(gentmpdir)
