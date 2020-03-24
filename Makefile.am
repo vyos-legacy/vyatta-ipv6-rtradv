@@ -10,7 +10,6 @@ modprobedir	 = $(sysconfdir)/modprobe.d
 sysconf_DATA	 =
 sbin_SCRIPTS	 =
 
-sbin_SCRIPTS += scripts/vyatta_gen_radvd.pl
 sbin_SCRIPTS += scripts/vyatta-ipv6-eui64.pl
 
 modprobe_DATA = etc/modprobe.d/ipv6.conf
