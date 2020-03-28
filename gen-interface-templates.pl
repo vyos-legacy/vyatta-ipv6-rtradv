@@ -30,20 +30,7 @@ my $debug = $ENV{'DEBUG'};
 # Mapping from configuration level to ifname used AT THAT LEVEL
 # Priority values are taken from the relevant node, any changes to those need to be reflected here.
 my %interface_hash = (
-    'loopback/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '300'},
-    'ethernet/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '318'},
-    'ethernet/node.tag/vif/node.tag'                => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '319'},
-    'bonding/node.tag'                              => {'if_name' => '$VAR(@)', 'priority' => '315'},
-    'bonding/node.tag/vif/node.tag'                 => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '320'},
-    'tunnel/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '380'},
-    'wireless/node.tag'                             => {'if_name' => '$VAR(@)', 'priority' => '318'},
-    'wireless/node.tag/vif/node.tag'                => {'if_name' => '$VAR(../@).$VAR(@)', 'priority' => '322'},
-    'pseudo-ethernet/node.tag'                      => {'if_name' => '$VAR(@)', 'priority' => '319'},
-    'bridge/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '310'},
-    'openvpn/node.tag'                              => {'if_name' => '$VAR(@)', 'priority' => '460'},
     'wirelessmodem/node.tag'                        => {'if_name' => '$VAR(@)', 'priority' => '350'},
-    'l2tpv3/node.tag'                               => {'if_name' => '$VAR(@)', 'priority' => '460'},
-    'vxlan/node.tag'                                => {'if_name' => '$VAR(@)', 'priority' => '460'},
 );
 
 sub gen_template {
