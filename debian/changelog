@@ -1,3 +1,9 @@
+vyatta-ipv6-rtradv (1.2.6) unstable; urgency=low
+
+  * New release.
+
+ -- VyOS maintainers <maintainers@vyos.io>  Fri, 11 Sep 2020 04:33:35 +0300
+
 vyatta-ipv6-rtradv (1.2.5) unstable; urgency=medium
 
   * New dnssl option.
