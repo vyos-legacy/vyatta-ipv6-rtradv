@@ -1,2 +1,7 @@
 This package has the Vyatta configuration templates and scripts to configure
 the IPv6 router advertisement daemon (radvd).
+
+# NOTE
+
+This package is deprecated and all it's content was rewritten. You can find the
+new implementation here: https://github.com/vyos/vyos-1x
